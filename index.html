@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Leaflet Step-1</title>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+   integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+   crossorigin=""/>
+
+<!-- Leaflet JS--> 
+  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+  integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+  crossorigin=""></script>
+<!-- Our CSS -->
+  <link rel="stylesheet" type="text/css" href="static/css/style.css"> 
+  <style>
+    #map{
+      height: 400px;
+    }
+
+  </style>
+</head>
+
+<body>
+  <h1>Significant earthquakes in USA</h1>
+
+  <p>
+    Number of significant earthquakes <span id="num"></span>
+  </p>
+  <!-- The div that holds our map -->
+  <div id="map"></div>
+
+  <script>
+
+    
+    const api_url= "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_month.geojson";
+    async function getearthQ(){
+      const response = await fetch(api_url);
+      const data = await response.json();
+      const {count} =data.metadata;
+      console.log(count)
+      //console.log(data.metadata.count);
+
+    }
+    getearthQ();
+    
+    const mymap = L.map('map').setView([37, -95], 4);
+    const marker = L.marker([0,0]).addTo(mymap);
+    const attribution= 
+      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+
+    tileUrl= 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+    const tiles= L.tileLayer(tileUrl, {attribution} )
+    tiles.addTo(mymap); 
+
+    
+
+  </script>
+<!--D3 JavaScript -->
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <!-- API key ->
+  <script type="text/javascript" src="static/js/config.js"></script>-->
+  <!-- Our JavaScript--> 
+  <script type="text/javascript" src="static/js/logic.js"></script>-->
+</body>
+
+</html>
